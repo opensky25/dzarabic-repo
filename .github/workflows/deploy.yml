@@ -1,0 +1,25 @@
+name: Deploy DzArabic Extensions
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:  # Allows manual triggers
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Build extensions (generates repo.json and .jar files)
+      - name: Build CloudStream Extensions
+        run: |
+          cd extensions
+          ./gradlew build
+
+      # Deploy files to the repo's 'builds' branch
+      - name: Deploy to GitHub
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.DZARABIC_TOKEN }}  # Uses your secret!
+          publish_dir: ./build/repo
+          publish_branch: builds  # Creates a branch for CloudStream
