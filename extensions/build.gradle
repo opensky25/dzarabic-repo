@@ -1,0 +1,28 @@
+plugins {
+    id 'java-library'
+    id 'org.jetbrains.kotlin.jvm' version '1.9.0'  // Must match CloudStream's Kotlin version
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }  // Required for CloudStream dependencies
+}
+
+dependencies {
+    implementation 'com.lagradost:cloudstream3:3.4.5'  // Core CloudStream library
+    implementation 'org.jsoup:jsoup:1.16.1'           // HTML parsing
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+    kotlinOptions {
+        jvmTarget = "11"  // Java 11 compatibility
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java']  // Where your Kotlin files live
+        }
+    }
+}
