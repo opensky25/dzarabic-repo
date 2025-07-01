@@ -1,4 +1,4 @@
-name: Deploy DzArabic Extensions
+name: Deploy DzArabic-repo Extensions
 on: [push]
 
 jobs:
@@ -13,14 +13,13 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
       
-      - name: Grant Gradle permissions
-        run: chmod +x ./extensions/gradlew
-      
       - name: Build Extensions
-        working-directory: ./extensions
-        run: ./gradlew build --refresh-dependencies
+        working-directory: .
+        run: |
+          chmod +x gradlew
+          ./gradlew :extensions:build --no-daemon
       
-      - name: Upload Build Artifacts
+      - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: extensions

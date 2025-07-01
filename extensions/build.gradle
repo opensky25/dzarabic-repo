@@ -1,15 +1,24 @@
 plugins {
-    id 'java-library'
-    id 'org.jetbrains.kotlin.jvm' version '1.9.0'
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'com.lagradost.cloudstream3.gradle'
 }
 
-repositories {
-    mavenCentral()
-    maven { url 'https://jitpack.io' }
-    maven { url 'https://repo.recloudstream.com/releases' }
+android {
+    namespace 'com.dzarabic.extensions'
+    compileSdk 34
+
+    defaultConfig {
+        minSdk 21
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
-    implementation 'com.github.recloudstream:cloudstream:3.4.5'
-    implementation 'org.jsoup:jsoup:1.16.1'
+    implementation 'com.github.recloudstream.cloudstream:library-jvm:master'
+    implementation 'org.jsoup:jsoup:1.18.3'
 }
