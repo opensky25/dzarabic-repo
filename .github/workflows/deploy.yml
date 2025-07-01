@@ -13,14 +13,17 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
       
+      - name: Grant Gradle permissions
+        run: chmod +x ./extensions/gradlew
+      
       - name: Build Extensions
         working-directory: ./extensions
-        run: |
-          chmod +x gradlew
-          ./gradlew clean build --refresh-dependencies --stacktrace
+        run: ./gradlew build --refresh-dependencies
       
-      - name: Archive Build Artifacts
-        uses: actions/upload-artifact@v3
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
         with:
           name: extensions
-          path: extensions/build/libs/*.jar
+          path: |
+            extensions/build/libs/*.jar
+            extensions/build/reports/tests/**/*
