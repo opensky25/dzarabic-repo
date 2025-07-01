@@ -10,15 +10,30 @@ android {
 
     defaultConfig {
         minSdk 21
+        consumerProguardFiles 'consumer-rules.pro'
     }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/*'
+    }
 }
 
 dependencies {
-    implementation 'com.github.recloudstream.cloudstream:library-jvm:master'
+    implementation 'com.lagradost:cloudstream-core:3.4.5'
     implementation 'org.jsoup:jsoup:1.18.3'
 }
